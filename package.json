@@ -1,0 +1,13 @@
+{
+  "name": "codebase-explainer",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "bun --cwd apps/api dev",
+    "dev:web": "bun --cwd apps/web dev",
+    "lint": "bun --cwd apps/api lint && bun --cwd apps/web lint"
+  }
+}

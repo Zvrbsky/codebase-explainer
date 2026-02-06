@@ -54,6 +54,24 @@ Specification for a RAG-based agent that explains software codebases to recruite
 - v1: hybrid retrieval + tool-calling agent.
 - v2: user projects, saved conversations, private repos.
 
+## Local Development
+### Backend (Bun + Hono)
+1. Install dependencies:
+   - `bun install`
+2. Run the API:
+   - `bun run dev:api`
+3. Health check:
+   - `GET http://localhost:3001/health`
+
+### Frontend (Next.js)
+The frontend app will live in `apps/web`. Once it is scaffolded:
+1. Install dependencies:
+   - `bun install`
+2. Run the web app:
+   - `bun run dev:web`
+3. Open:
+   - `http://localhost:3000`
+
 ## Open Decisions
 - Separate backend vs. Next.js API routes.
 - Reranker model choice and hosting.
