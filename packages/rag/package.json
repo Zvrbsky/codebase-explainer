@@ -1,0 +1,11 @@
+{
+  "name": "@codebase-explainer/rag",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@codebase-explainer/shared": "*",
+    "@octokit/rest": "^21.0.1"
+  }
+}
