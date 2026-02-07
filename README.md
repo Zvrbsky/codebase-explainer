@@ -55,6 +55,13 @@ Specification for a RAG-based agent that explains software codebases to recruite
 - v2: user projects, saved conversations, private repos.
 
 ## Local Development
+### Docker (DB + API)
+1. Copy env template:
+   - `cp .env.example .env`
+2. Update `.env` with your keys.
+3. Start services:
+   - `docker compose up`
+
 ### Backend (Bun + Hono)
 1. Install dependencies:
    - `bun install`
