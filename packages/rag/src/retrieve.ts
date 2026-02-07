@@ -30,14 +30,16 @@ export async function retrieveChunks(input: RetrieveQuery): Promise<Chunk[]> {
   const topK = input.topK ?? 8;
   const [embeddingResult] = await embedTexts([input.query]);
 
-  const vectorQuery = `
+  const vectorQuery = embeddingResult?.vector
+    ? `
     SELECT id, repo_id, path, language, symbol, start_line, end_line, content,
            1 - (embedding <=> $1) AS score
     FROM rag_chunks
-    WHERE repo_id = $2
+    WHERE repo_id = $2 AND embedding IS NOT NULL
     ORDER BY embedding <=> $1
     LIMIT $3
-  `;
+  `
+    : null;
 
   const keywordQuery = `
     SELECT id, repo_id, path, language, symbol, start_line, end_line, content,
@@ -48,11 +50,13 @@ export async function retrieveChunks(input: RetrieveQuery): Promise<Chunk[]> {
     LIMIT $3
   `;
 
-  const vectorResult = await pool.query(vectorQuery, [
-    embeddingResult.vector,
-    input.repoId,
-    topK,
-  ]);
+  const vectorResult = vectorQuery
+    ? await pool.query(vectorQuery, [
+        `[${embeddingResult.vector.join(",")}]`,
+        input.repoId,
+        topK,
+      ])
+    : { rows: [] };
   const keywordResult = await pool.query(keywordQuery, [
     input.query,
     input.repoId,

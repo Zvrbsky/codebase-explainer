@@ -72,6 +72,11 @@ export async function ingestRepo(
   options?: { token?: string }
 ): Promise<IngestResult> {
   const repoId = `${source.owner}/${source.name}`;
+  const startedAt = Date.now();
+  const log = (message: string) => {
+    const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
+    console.log(`[ingest ${repoId}] +${elapsed}s ${message}`);
+  };
   const octokit = new Octokit({
     auth: options?.token ?? Bun.env.GITHUB_TOKEN,
   });
@@ -79,6 +84,7 @@ export async function ingestRepo(
   const branch = source.branch ?? "main";
   const ref = `heads/${branch}`;
 
+  log(`fetching ref ${ref}`);
   const refInfo = await octokit.git.getRef({
     owner: source.owner,
     repo: source.name,
@@ -86,6 +92,7 @@ export async function ingestRepo(
   });
 
   const treeSha = refInfo.data.object.sha;
+  log(`fetching tree ${treeSha}`);
   const tree = await octokit.git.getTree({
     owner: source.owner,
     repo: source.name,
@@ -94,7 +101,10 @@ export async function ingestRepo(
   });
 
   const files: IngestedFile[] = [];
+  let processed = 0;
+  let fetched = 0;
   for (const item of tree.data.tree) {
+    processed += 1;
     if (item.type !== "blob" || !item.path || !item.sha) continue;
     if (shouldIgnore(item.path)) continue;
     if (!isTextFile(item.path)) continue;
@@ -114,8 +124,14 @@ export async function ingestRepo(
       sha: item.sha,
       size: item.size ?? content.length,
     });
+
+    fetched += 1;
+    if (fetched % 50 === 0) {
+      log(`fetched ${fetched} files (processed ${processed}/${tree.data.tree.length})`);
+    }
   }
 
+  log(`done: ${files.length} files`);
   return {
     repoId,
     fileCount: files.length,

@@ -70,6 +70,20 @@ Specification for a RAG-based agent that explains software codebases to recruite
 3. Health check:
    - `GET http://localhost:3001/health`
 
+### API Test Commands (curl)
+1. Health:
+   - `curl -s http://localhost:3001/health`
+2. Ingest a repo:
+   - `curl -s -X POST http://localhost:3001/repos/ingest \`
+     `-H "Content-Type: application/json" \`
+     `-d '{"owner":"vercel","name":"next.js","branch":"canary"}'`
+3. Check repo status:
+   - `curl -s http://localhost:3001/repos/vercel%2Fnext.js/status`
+4. Ask a question:
+   - `curl -s -X POST http://localhost:3001/chat \`
+     `-H "Content-Type: application/json" \`
+     `-d '{"repoId":"vercel/next.js","question":"Where is the routing handled?"}'`
+
 ### Frontend (Next.js)
 The frontend app will live in `apps/web`. Once it is scaffolded:
 1. Install dependencies:

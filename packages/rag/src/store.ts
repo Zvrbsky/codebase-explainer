@@ -1,4 +1,3 @@
-import { toSql } from "pgvector/pg";
 import type { Chunk } from "./chunk";
 import { getDbPool } from "./db";
 import { embedTexts } from "./embeddings";
@@ -21,13 +20,14 @@ export async function storeChunks(
     await client.query("BEGIN");
     for (let i = 0; i < chunks.length; i += 1) {
       const chunk = chunks[i];
-      const embedding = embeddings[i]?.vector ?? [];
+      const embedding = embeddings[i]?.vector ?? null;
+      const vectorSql = embedding ? `[${embedding.join(",")}]` : null;
       await client.query(
         `
         INSERT INTO rag_chunks (
           id, repo_id, path, language, symbol, start_line, end_line, content, embedding
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9::vector)
         ON CONFLICT (id) DO UPDATE
         SET content = EXCLUDED.content,
             language = EXCLUDED.language,
@@ -45,7 +45,7 @@ export async function storeChunks(
           chunk.metadata.startLine ?? null,
           chunk.metadata.endLine ?? null,
           chunk.content,
-          toSql(embedding),
+          vectorSql,
         ]
       );
     }
