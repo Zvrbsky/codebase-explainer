@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { z } from "zod";
 import { ChatOpenAI } from "@langchain/openai";
 import {
@@ -10,6 +11,7 @@ import {
 } from "@codebase-explainer/rag";
 
 const app = new Hono();
+app.use("*", cors({ origin: "*" }));
 
 app.get("/health", (c) => c.json({ ok: true }));
 

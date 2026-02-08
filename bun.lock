@@ -24,6 +24,9 @@
         "typescript": "^5.5.4",
       },
     },
+    "apps/web": {
+      "name": "@codebase-explainer/web",
+    },
     "packages/agent": {
       "name": "@codebase-explainer/agent",
       "dependencies": {
@@ -55,6 +58,8 @@
     "@codebase-explainer/rag": ["@codebase-explainer/rag@workspace:packages/rag"],
 
     "@codebase-explainer/shared": ["@codebase-explainer/shared@workspace:packages/shared"],
+
+    "@codebase-explainer/web": ["@codebase-explainer/web@workspace:apps/web"],
 
     "@langchain/core": ["@langchain/core@0.2.36", "", { "dependencies": { "ansi-styles": "^5.0.0", "camelcase": "6", "decamelize": "1.2.0", "js-tiktoken": "^1.0.12", "langsmith": "^0.1.56-rc.1", "mustache": "^4.2.0", "p-queue": "^6.6.2", "p-retry": "4", "uuid": "^10.0.0", "zod": "^3.22.4", "zod-to-json-schema": "^3.22.3" } }, "sha512-qHLvScqERDeH7y2cLuJaSAlMwg3f/3Oc9nayRSXRU2UuaK/SOhI42cxiPLj1FnuHJSmN0rBQFkrLx02gI4mcVg=="],
 

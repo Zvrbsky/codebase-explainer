@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev:api": "bun --cwd apps/api dev",
-    "dev:web": "bun --cwd apps/web dev",
+    "dev:web": "bun --hot apps/web/index.ts",
     "lint": "bun --cwd apps/api lint && bun --cwd apps/web lint"
   },
   "module": "index.ts",

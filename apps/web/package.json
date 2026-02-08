@@ -1,0 +1,8 @@
+{
+  "name": "@codebase-explainer/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "echo \"(placeholder)\""
+  }
+}

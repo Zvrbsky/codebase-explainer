@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codebase Explainer</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>AI Codebase Explainer</h1>
+        <p>Ingest a repo, then ask questions with citations.</p>
+      </header>
+
+      <section class="panel">
+        <h2>Ingest</h2>
+        <div class="row">
+          <label>
+            Owner
+            <input id="owner" type="text" placeholder="honojs" />
+          </label>
+          <label>
+            Repo
+            <input id="repo" type="text" placeholder="hono" />
+          </label>
+          <label>
+            Branch (optional)
+            <input id="branch" type="text" placeholder="main" />
+          </label>
+        </div>
+        <button id="ingestBtn">Ingest Repo</button>
+        <pre id="ingestOutput" class="output"></pre>
+      </section>
+
+      <section class="panel">
+        <h2>Chat</h2>
+        <label>
+          Repo ID (owner/name)
+          <input id="repoId" type="text" placeholder="honojs/hono" />
+        </label>
+        <label>
+          Question
+          <textarea id="question" rows="4" placeholder="Where is routing handled?"></textarea>
+        </label>
+        <button id="chatBtn">Ask</button>
+        <pre id="chatOutput" class="output"></pre>
+      </section>
+    </main>
+
+    <script>
+      window.__API_BASE_URL__ = "__API_BASE_URL__";
+    </script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

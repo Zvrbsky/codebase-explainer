@@ -15,9 +15,8 @@ Specification for a RAG-based agent that explains software codebases to recruite
 
 ## Tech Stack (Initial)
 ### Frontend
-- Framework: Next.js (App Router) + TypeScript
-- UI: Tailwind CSS + shadcn/ui
-- Auth: NextAuth.js (GitHub OAuth)
+- Runtime: Bun (static UI)
+- UI: HTML + CSS + vanilla JS
 
 ### Backend / API
 - Runtime: Bun
@@ -84,16 +83,15 @@ Specification for a RAG-based agent that explains software codebases to recruite
      `-H "Content-Type: application/json" \`
      `-d '{"repoId":"vercel/next.js","question":"Where is the routing handled?"}'`
 
-### Frontend (Next.js)
-The frontend app will live in `apps/web`. Once it is scaffolded:
-1. Install dependencies:
-   - `bun install`
-2. Run the web app:
+### Frontend (Bun UI)
+The minimal UI is served via Bun:
+1. Run the web app:
    - `bun run dev:web`
-3. Open:
+2. Open:
    - `http://localhost:3000`
+3. Configure API base URL in `.env`:
+   - `API_BASE_URL=http://localhost:3001`
 
 ## Open Decisions
-- Separate backend vs. Next.js API routes.
 - Reranker model choice and hosting.
 - Code chunk size and overlap.
