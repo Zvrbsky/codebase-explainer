@@ -8,6 +8,7 @@
   "scripts": {
     "dev:api": "bun --cwd apps/api dev",
     "dev:web": "bun --hot apps/web/index.ts",
+    "build:web": "API_BASE_URL=$API_BASE_URL bun apps/web/build.ts",
     "lint": "bun --cwd apps/api lint && bun --cwd apps/web lint"
   },
   "module": "index.ts",

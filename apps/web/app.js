@@ -1,3 +1,4 @@
+const API_BASE_URL = "__API_BASE_URL__";
 const ownerInput = document.getElementById("owner");
 const repoInput = document.getElementById("repo");
 const branchInput = document.getElementById("branch");
@@ -10,8 +11,10 @@ const chatOutput = document.getElementById("chatOutput");
 const chatBtn = document.getElementById("chatBtn");
 
 function apiBase() {
-  const base = window.__API_BASE_URL__ || "http://localhost:3001";
-  return base.replace(/\/$/, "");
+  if (!API_BASE_URL || API_BASE_URL === "__API_BASE_URL__") {
+    throw new Error("API_BASE_URL is not set");
+  }
+  return API_BASE_URL.replace(/\/$/, "");
 }
 
 function pretty(obj) {

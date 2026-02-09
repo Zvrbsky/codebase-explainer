@@ -12,9 +12,15 @@ Bun.serve({
         headers: { "Content-Type": "text/html; charset=utf-8" },
       }
     ),
-    "/app.js": Bun.file("apps/web/app.js"),
+    "/app.js": new Response(
+      await Bun.file("apps/web/app.js").text().then((text) =>
+        text.replace("__API_BASE_URL__", apiBase)
+      ),
+      {
+        headers: { "Content-Type": "text/javascript; charset=utf-8" },
+      }
+    ),
     "/styles.css": Bun.file("apps/web/styles.css"),
-    "/assets/logo.svg": Bun.file("apps/web/assets/logo.svg"),
     "/assets/favicon.svg": Bun.file("apps/web/assets/favicon.svg"),
   },
   development: {

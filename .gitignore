@@ -1,3 +1,4 @@
 node_modules/
 apps/*/node_modules/
 .env
+apps/web/dist/

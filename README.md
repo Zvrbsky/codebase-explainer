@@ -91,6 +91,12 @@ The minimal UI is served via Bun:
    - `http://localhost:3000`
 3. Configure API base URL in `.env`:
    - `API_BASE_URL=http://localhost:3001`
+
+For static hosting (e.g., Render Static Site):
+1. Build the static files:
+   - `API_BASE_URL=https://your-api.onrender.com bun run build:web`
+2. Publish directory:
+   - `apps/web/dist`
 4. Configure CORS origins in `.env` (comma-separated):
    - `CORS_ORIGINS=http://localhost:3000`
 
