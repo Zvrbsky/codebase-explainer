@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const MODEL = "text-embedding-3-large";
+const MODEL = "text-embedding-3-small";
 const TOKEN_BUDGET = 250_000;
 const MAX_INPUTS_PER_BATCH = 128;
 

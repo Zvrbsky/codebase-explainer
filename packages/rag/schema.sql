@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS rag_chunks (
   end_line INT,
   content TEXT NOT NULL,
   content_tsv tsvector GENERATED ALWAYS AS (to_tsvector('simple', content)) STORED,
-  embedding vector(3072)
+  embedding vector(1536)
 );
 
 CREATE INDEX IF NOT EXISTS rag_chunks_repo_idx ON rag_chunks (repo_id);
