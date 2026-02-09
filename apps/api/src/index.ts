@@ -11,7 +11,22 @@ import {
 } from "@codebase-explainer/rag";
 
 const app = new Hono();
-app.use("*", cors({ origin: "*" }));
+const corsOrigins = (Bun.env.CORS_ORIGINS ?? "*")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const corsOrigin =
+  corsOrigins.length === 0 || corsOrigins.includes("*") ? "*" : corsOrigins;
+
+app.use(
+  "*",
+  cors({
+    origin: corsOrigin,
+    allowMethods: ["GET", "POST", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.get("/health", (c) => c.json({ ok: true }));
 

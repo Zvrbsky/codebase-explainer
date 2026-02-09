@@ -91,6 +91,8 @@ The minimal UI is served via Bun:
    - `http://localhost:3000`
 3. Configure API base URL in `.env`:
    - `API_BASE_URL=http://localhost:3001`
+4. Configure CORS origins in `.env` (comma-separated):
+   - `CORS_ORIGINS=http://localhost:3000`
 
 ## Open Decisions
 - Reranker model choice and hosting.
